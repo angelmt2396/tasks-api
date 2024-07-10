@@ -1,5 +1,6 @@
 import { TASKS_VALIDATION_MESSAGES } from './constants.js';
-const { TASK_NAME, EMAIL, DESCRIPTION, DATE } = TASKS_VALIDATION_MESSAGES;
+const { TASK_NAME, EMAIL, DESCRIPTION, DATE, NICKNAME, PASSWORD } =
+  TASKS_VALIDATION_MESSAGES;
 
 export const checkName = {
   name: {
@@ -9,6 +10,31 @@ export const checkName = {
     isEmpty: {
       negated: true,
       errorMessage: TASK_NAME.TASK_NAME_NOT_EMPTY,
+    },
+  },
+};
+
+export const checkNickName = {
+  nickname: {
+    isString: {
+      errorMessage: NICKNAME.NICKNAME_STRING_VALIDATION,
+    },
+    isEmpty: {
+      negated: true,
+      errorMessage: NICKNAME.NICKNAME_NOT_EMPTY,
+    },
+    optional: true,
+  },
+};
+
+export const checkPassword = {
+  password: {
+    isString: {
+      errorMessage: PASSWORD.PASSWORD_STRING_VALIDATION,
+    },
+    isEmpty: {
+      negated: true,
+      errorMessage: PASSWORD.PASSWORD_NOT_EMPTY,
     },
   },
 };

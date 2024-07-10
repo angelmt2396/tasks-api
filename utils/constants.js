@@ -3,6 +3,14 @@ export const TASKS_VALIDATION_MESSAGES = {
     TASK_NAME_STRING_VALIDATION: 'Name must be a string',
     TASK_NAME_NOT_EMPTY: 'Name should not be empty',
   },
+  NICKNAME: {
+    NICKNAME_STRING_VALIDATION: 'nickname must be a string',
+    NICKNAME_NOT_EMPTY: 'nickname should not be empty',
+  },
+  PASSWORD: {
+    PASSWORD_STRING_VALIDATION: 'password must be a string',
+    PASSWORD_NOT_EMPTY: 'password should not be empty',
+  },
   EMAIL: {
     EMPTY_EMAIL_VALIDATION: 'Email should not be empty',
     FORMAT_EMAIL_VALIDATION: 'Incorrect email format',
@@ -33,3 +41,5 @@ export const MESSAGE_DELETE_SUCCESS = 'successfully deleted.';
 export const MESSAGE_SEARCH_SUCCESS = 'successfully search results.';
 export const DATA_NOT_FOUND = 'data not found';
 export const TASK_DOES_NOT_EXIST = 'Tasks does not exist';
+export const TEAM_DOES_NOT_EXIST = 'Team does not exist';
+export const EMAIL_DOES_NOT_EXIST = 'Email does not exist';

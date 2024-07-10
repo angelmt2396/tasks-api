@@ -4,11 +4,15 @@ import helmet from 'helmet';
 import { tasksRouter } from '../../routes/v1/tasks.js';
 import { ValidateRequest } from '../../middlewares/validate-request.js';
 import { HandleException } from '../../middlewares/error-handler.js';
+import { teamsRouter } from '../../routes/v1/teams.js';
+import { usersRouter } from '../../routes/v1/users.js';
 export class ServerConfig {
   constructor() {
     this.app = express();
     this.middlewares();
     this.routes(tasksRouter);
+    this.routes(teamsRouter);
+    this.routes(usersRouter);
     this.handleException();
   }
 
@@ -27,6 +31,8 @@ export class ServerConfig {
   routes() {
     const v1 = '/api/v1';
     this.app.use(v1, tasksRouter);
+    this.app.use(v1, teamsRouter);
+    this.app.use(v1, usersRouter);
   }
 
   listen(port) {
