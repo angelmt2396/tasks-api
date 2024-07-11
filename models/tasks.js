@@ -13,7 +13,7 @@ const TasksSchema = new Schema(
     assignedPersonEmail: {
       type: String,
       required: false,
-      match: [/.+\@.+\..+/, 'Please enter a valid email address'],
+      match: [/.+@.+\..+/, 'Please enter a valid email address'],
     },
     description: {
       type: String,
@@ -28,6 +28,10 @@ const TasksSchema = new Schema(
       required: false,
     },
     isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+    isCompleted: {
       type: Boolean,
       default: false,
     },

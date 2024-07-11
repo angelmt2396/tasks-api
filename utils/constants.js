@@ -24,6 +24,9 @@ export const TASKS_VALIDATION_MESSAGES = {
     VALIDATE_START_DATE_REQUIRED:
       'Start date is required if end date is provided',
   },
+  IS_COMPLETED: {
+    IS_BOOL_VALIDATION: 'must be boolean',
+  },
 };
 
 export const SUCCESS = 'success';

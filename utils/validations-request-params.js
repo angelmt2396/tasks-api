@@ -1,7 +1,22 @@
 import { TASKS_VALIDATION_MESSAGES } from './constants.js';
-const { TASK_NAME, EMAIL, DESCRIPTION, DATE, NICKNAME, PASSWORD } =
-  TASKS_VALIDATION_MESSAGES;
+const {
+  TASK_NAME,
+  EMAIL,
+  DESCRIPTION,
+  DATE,
+  NICKNAME,
+  PASSWORD,
+  IS_COMPLETED,
+} = TASKS_VALIDATION_MESSAGES;
 
+export const checkIsCompleted = {
+  isCompleted: {
+    isBoolean: {
+      errorMessage: IS_COMPLETED.IS_BOOL_VALIDATION,
+    },
+    optional: true,
+  },
+};
 export const checkName = {
   name: {
     isString: {

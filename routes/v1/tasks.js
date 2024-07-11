@@ -9,6 +9,7 @@ import {
   checkStartDate,
   checkEndDateToCreate,
   checkEndDateToUpdate,
+  checkIsCompleted,
 } from '../../utils/validations-request-params.js';
 import { TasksController } from '../../controllers/v1/tasks.js';
 import { ValidateRequest } from '../../middlewares/validate-request.js';
@@ -25,6 +26,7 @@ tasksRouter.post(
   checkSchema(checkDescription),
   checkSchema(checkStartDate),
   checkSchema(checkEndDateToCreate),
+  checkSchema(checkIsCompleted),
   [ValidateRequest],
   [HandleException],
   taskController.createTask,
@@ -45,6 +47,7 @@ tasksRouter.post(
   checkSchema(optionalCheckDescription),
   checkSchema(checkStartDate),
   checkSchema(checkEndDateToUpdate),
+  checkSchema(checkIsCompleted),
   [ValidateRequest],
   taskController.updateTask,
 );

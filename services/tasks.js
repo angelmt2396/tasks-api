@@ -9,14 +9,21 @@ import { CustomException } from '../utils/custom-exception.js';
 
 class TasksService {
   async createTask(taskData) {
-    const { name, assignedPersonEmail, description, startDate, endDate } =
-      taskData;
+    const {
+      name,
+      assignedPersonEmail,
+      description,
+      startDate,
+      endDate,
+      isCompleted,
+    } = taskData;
     const task = new TasksModel({
       assignedPersonEmail,
       name,
       description,
       startDate,
       endDate,
+      isCompleted,
       uuid: uuidv4(),
     });
     await task.save();
@@ -27,6 +34,7 @@ class TasksService {
       description,
       startDate,
       endDate,
+      isCompleted,
     }) => ({
       uuid,
       name,
@@ -34,13 +42,14 @@ class TasksService {
       description,
       startDate,
       endDate,
+      isCompleted,
     }))(task);
   }
 
   async findTaskByUuid(uuid) {
     return TasksModel.findOne({ uuid, isDeleted: false })
       .select(
-        'uuid name assignedPersonEmail description startDate endDate -_id',
+        'uuid name assignedPersonEmail description startDate endDate isCompleted -_id',
       )
       .lean();
   }
@@ -54,7 +63,7 @@ class TasksService {
       .skip(offset)
       .limit(limit)
       .select(
-        'uuid name assignedPersonEmail description startDate endDate -_id',
+        'uuid name assignedPersonEmail description startDate endDate isCompleted -_id',
       )
       .lean();
     const totalTasks = await TasksModel.countDocuments({ isDeleted: false });
