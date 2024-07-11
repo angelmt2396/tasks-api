@@ -88,7 +88,6 @@ class TasksService {
       )
       .lean();
     const totalTasks = await TasksModel.countDocuments({ isDeleted: false });
-    console.log(totalTasks);
     const totalPages = Math.ceil(totalTasks / limit);
     const currentPage = offset > tasks.length ? 0 : Math.ceil(offset / limit);
     return {
@@ -126,7 +125,6 @@ class TasksService {
     }
     delete taskData.teamName;
     taskData['team'] = team['_id'];
-    console.log(taskData);
     const result = await this.updateRecords({ uuid }, taskData);
     if (!result) return null;
     return uuid;

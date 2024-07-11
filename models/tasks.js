@@ -31,6 +31,7 @@ const TasksSchema = new Schema(
     isDeleted: {
       type: Boolean,
       default: false,
+      index: true,
     },
     isCompleted: {
       type: Boolean,
