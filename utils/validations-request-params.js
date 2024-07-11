@@ -7,6 +7,8 @@ const {
   NICKNAME,
   PASSWORD,
   IS_COMPLETED,
+  FIND_ALL,
+  IS_UUID,
 } = TASKS_VALIDATION_MESSAGES;
 
 export const checkIsCompleted = {
@@ -134,4 +136,46 @@ export const validateEndDateGreater = (startDate, endDate) => {
   if (end <= start) {
     throw new Error(DATE.VALIDATE_END_DATE_GREATER);
   }
+};
+
+export const validatePage = {
+  page: {
+    in: ['query'],
+    optional: true,
+    isInt: {
+      options: { min: 1 },
+      errorMessage: FIND_ALL.IS_INTEGER,
+    },
+  },
+};
+
+export const validateLimit = {
+  limit: {
+    in: ['query'],
+    optional: true,
+    isInt: {
+      options: { min: 1 },
+      errorMessage: FIND_ALL.IS_INTEGER,
+    },
+  },
+};
+
+export const validateOrder = {
+  order: {
+    in: ['query'],
+    optional: true,
+    isIn: {
+      options: [['asc', 'desc']],
+      errorMessage: FIND_ALL.ORDER_VALUES,
+    },
+  },
+};
+
+export const validateUuid = {
+  uuid: {
+    in: ['params'],
+    isUUID: {
+      errorMessage: IS_UUID,
+    },
+  },
 };

@@ -5,7 +5,7 @@ export class UserController {
   async registerUser(req, res, next) {
     try {
       const data = await usersService.registerUser(req.body);
-      const response = customResponse(responses.success.find, data);
+      const response = customResponse(responses.success.create, data);
       res.status(responses.success.create.code).json(response);
     } catch (error) {
       next(error);

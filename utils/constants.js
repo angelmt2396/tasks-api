@@ -27,6 +27,11 @@ export const TASKS_VALIDATION_MESSAGES = {
   IS_COMPLETED: {
     IS_BOOL_VALIDATION: 'must be boolean',
   },
+  FIND_ALL: {
+    IS_INTEGER: 'must be an integer greater than 0',
+    ORDER_VALUES: 'must be either asc or desc',
+  },
+  IS_UUID: 'UUID must be a valid UUID',
 };
 
 export const SUCCESS = 'success';

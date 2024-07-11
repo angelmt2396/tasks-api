@@ -5,6 +5,7 @@ const TasksSchema = new Schema(
     uuid: {
       type: String,
       unique: true,
+      index: true,
     },
     name: {
       type: String,

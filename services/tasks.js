@@ -108,7 +108,7 @@ class TasksService {
         responses.error.doesNotExist(TASK_DOES_NOT_EXIST),
       );
     }
-    return deleted;
+    return {};
   }
 
   async updateRecords(filter, update) {

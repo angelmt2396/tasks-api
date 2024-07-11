@@ -5,4 +5,5 @@ export default {
   PORT: process.env.PORT,
   MONGO_HOST: process.env.MONGO_HOST,
   APPLICATION_NAME: process.env.APPLICATION_NAME,
+  NODE_ENV: process.env.NODE_ENV,
 };

@@ -6,6 +6,9 @@ import { ValidateRequest } from '../../middlewares/validate-request.js';
 import { HandleException } from '../../middlewares/error-handler.js';
 import { teamsRouter } from '../../routes/v1/teams.js';
 import { usersRouter } from '../../routes/v1/users.js';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from '../../swagger.js';
+
 export class ServerConfig {
   constructor() {
     this.app = express();
@@ -14,6 +17,13 @@ export class ServerConfig {
     this.routes(teamsRouter);
     this.routes(usersRouter);
     this.handleException();
+    this.setupSwagger();
+  }
+
+  setupSwagger() {
+    if (process.env.NODE_ENV !== 'production') {
+      this.app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    }
   }
 
   middlewares() {
