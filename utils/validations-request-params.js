@@ -4,7 +4,7 @@ const {
   EMAIL,
   DESCRIPTION,
   DATE,
-  NICKNAME,
+  TEAM_NAME,
   PASSWORD,
   IS_COMPLETED,
   FIND_ALL,
@@ -31,16 +31,15 @@ export const checkName = {
   },
 };
 
-export const checkNickName = {
-  nickname: {
+export const checkTeamName = {
+  teamName: {
     isString: {
-      errorMessage: NICKNAME.NICKNAME_STRING_VALIDATION,
+      errorMessage: TEAM_NAME.TEAM_NAME_STRING_VALIDATION,
     },
     isEmpty: {
       negated: true,
-      errorMessage: NICKNAME.NICKNAME_NOT_EMPTY,
+      errorMessage: TEAM_NAME.TEAM_NAME_NOT_EMPTY,
     },
-    optional: true,
   },
 };
 

@@ -3,9 +3,9 @@ export const TASKS_VALIDATION_MESSAGES = {
     TASK_NAME_STRING_VALIDATION: 'Name must be a string',
     TASK_NAME_NOT_EMPTY: 'Name should not be empty',
   },
-  NICKNAME: {
-    NICKNAME_STRING_VALIDATION: 'nickname must be a string',
-    NICKNAME_NOT_EMPTY: 'nickname should not be empty',
+  TEAM_NAME: {
+    TEAM_NAME_STRING_VALIDATION: 'teamName must be a string',
+    TEAM_NAME_NOT_EMPTY: 'teamName should not be empty',
   },
   PASSWORD: {
     PASSWORD_STRING_VALIDATION: 'password must be a string',

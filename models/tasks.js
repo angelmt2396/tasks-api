@@ -36,6 +36,10 @@ const TasksSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    team: {
+      type: Schema.Types.ObjectId,
+      ref: 'teams',
+    },
   },
   { timestamps: true },
 );

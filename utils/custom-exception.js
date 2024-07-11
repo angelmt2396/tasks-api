@@ -4,7 +4,7 @@ export class CustomException extends Error {
     super(error?.message || INTERNAL_SERVER_ERROR);
     this.status = ERROR;
     this.message = error?.message || INTERNAL_SERVER_ERROR;
-    this.code = error?.code ?? CODE_500;
+    this.code = error?.code && error?.code < 600 ? error.code : CODE_500;
     this.details = error?.details ?? null;
   }
 }

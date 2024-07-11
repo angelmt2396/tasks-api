@@ -4,8 +4,10 @@ import { responses } from '../utils/response-catalogs.js';
 import {
   TASK_DOES_NOT_EXIST,
   TASKS_VALIDATION_MESSAGES,
+  TEAM_DOES_NOT_EXIST,
 } from '../utils/constants.js';
 import { CustomException } from '../utils/custom-exception.js';
+import TeamsModel from '../models/teams.js';
 
 class TasksService {
   async createTask(taskData) {
@@ -16,7 +18,15 @@ class TasksService {
       startDate,
       endDate,
       isCompleted,
+      teamName,
     } = taskData;
+
+    const team = await TeamsModel.findOne({ name: teamName });
+    if (!team) {
+      throw new CustomException(
+        responses.error.doesNotExist(TEAM_DOES_NOT_EXIST),
+      );
+    }
     const task = new TasksModel({
       assignedPersonEmail,
       name,
@@ -25,6 +35,7 @@ class TasksService {
       endDate,
       isCompleted,
       uuid: uuidv4(),
+      team: team['_id'],
     });
     await task.save();
     return (({
@@ -35,6 +46,7 @@ class TasksService {
       startDate,
       endDate,
       isCompleted,
+      teamName,
     }) => ({
       uuid,
       name,
@@ -43,13 +55,18 @@ class TasksService {
       startDate,
       endDate,
       isCompleted,
+      teamName,
     }))(task);
   }
 
   async findTaskByUuid(uuid) {
     return TasksModel.findOne({ uuid, isDeleted: false })
+      .populate({
+        path: 'team',
+        select: 'name -_id', // Selecciona solo el campo `name` del equipo y excluye el `_id`
+      })
       .select(
-        'uuid name assignedPersonEmail description startDate endDate isCompleted -_id',
+        'uuid name assignedPersonEmail description startDate endDate isCompleted team -_id',
       )
       .lean();
   }
@@ -59,6 +76,10 @@ class TasksService {
     const sortOrder = order === 'desc' ? -1 : 1;
     const offset = page ? (page - 1) * limit : 0;
     const tasks = await TasksModel.find({ isDeleted: false })
+      .populate({
+        path: 'team',
+        select: 'name -_id',
+      })
       .sort({ [sortBy]: sortOrder })
       .skip(offset)
       .limit(limit)
@@ -78,7 +99,15 @@ class TasksService {
   }
 
   async updateTask(taskData) {
-    const { uuid, endDate, startDate } = taskData;
+    const { uuid, endDate, startDate, teamName } = taskData;
+
+    const team = await TeamsModel.findOne({ name: teamName });
+    if (!team) {
+      throw new CustomException(
+        responses.error.doesNotExist(TEAM_DOES_NOT_EXIST),
+      );
+    }
+
     const task = await this.findTaskByUuid(uuid);
     if (!task) {
       throw new CustomException(
@@ -95,7 +124,9 @@ class TasksService {
         }),
       );
     }
-
+    delete taskData.teamName;
+    taskData['team'] = team['_id'];
+    console.log(taskData);
     const result = await this.updateRecords({ uuid }, taskData);
     if (!result) return null;
     return uuid;

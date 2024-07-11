@@ -14,6 +14,7 @@ import {
   validatePage,
   validateLimit,
   validateUuid,
+  checkTeamName,
 } from '../../utils/validations-request-params.js';
 import { TasksController } from '../../controllers/v1/tasks.js';
 import { ValidateRequest } from '../../middlewares/validate-request.js';
@@ -64,6 +65,9 @@ const taskController = new TasksController();
  *                 format: date-time
  *                 description: end date
  *                 example: "2024-07-10T12:00:00Z"
+ *               teamName:
+ *                 type: string
+ *                 example: BACKEND
  *     responses:
  *       201:
  *         description: Task successfully created
@@ -149,6 +153,7 @@ tasksRouter.post(
   checkSchema(checkStartDate),
   checkSchema(checkEndDateToCreate),
   checkSchema(checkIsCompleted),
+  checkSchema(checkTeamName),
   [ValidateRequest],
   [HandleException],
   taskController.createTask,
@@ -212,6 +217,9 @@ tasksRouter.post(
  *                     isCompleted:
  *                       type: boolean
  *                       example: false
+ *                     teamName:
+ *                       type: string
+ *                       example: BACKEND
  *       400:
  *         description: Data validation error
  *         content:
@@ -250,6 +258,7 @@ tasksRouter.get(
   `${ROUTE}/:uuid`,
   checkSchema(validateUuid),
   [ValidateRequest],
+  [HandleException],
   taskController.findTaskByUuid,
 );
 
@@ -378,6 +387,7 @@ tasksRouter.get(
   checkSchema(validateOrder),
   checkSchema(validatePage),
   [ValidateRequest],
+  [HandleException],
   taskController.finAllTasks,
 );
 
@@ -422,6 +432,9 @@ tasksRouter.get(
  *                 format: date-time
  *                 description: End date
  *                 example: "2024-07-10T12:00:00Z"
+ *               teamName:
+ *                 type: string
+ *                 example: BACKEND
  *     responses:
  *       200:
  *         description: Task successfully updated
@@ -465,6 +478,9 @@ tasksRouter.get(
  *                     isCompleted:
  *                       type: boolean
  *                       example: false
+ *                     teamName:
+ *                       type: string
+ *                       example: BACKEND
  *       400:
  *         description: Data validation error
  *         content:
@@ -507,7 +523,9 @@ tasksRouter.post(
   checkSchema(checkStartDate),
   checkSchema(checkEndDateToUpdate),
   checkSchema(checkIsCompleted),
+  checkSchema(checkTeamName),
   [ValidateRequest],
+  [HandleException],
   taskController.updateTask,
 );
 
@@ -588,5 +606,6 @@ tasksRouter.post(
   `${ROUTE}/delete/:uuid`,
   checkSchema(validateUuid),
   [ValidateRequest],
+  [HandleException],
   taskController.deleteTask,
 );
